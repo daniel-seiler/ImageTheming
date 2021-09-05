@@ -32,20 +32,61 @@ class Theme(colors: MutableList<Color>) {
         }
     }
 
-    private fun getClosest(c: Color) : Color {
-        val cVal = getNum(c)
-        val list = getList(cVal.first)
-        //TODO scale each individual color
-        var diff = Integer.MAX_VALUE
-        var bestColor = Color(0)
-        list.forEach { tempColor ->
-            val tempDiff = calcDiff(tempColor, c, cVal)
-            if (tempDiff < diff) {
-                diff = tempDiff
-                bestColor = tempColor
+    fun transformImage(img: BufferedImage) : BufferedImage {
+        for (y in 0 until img.height) {
+            for (x in 0 until img.width) {
+                img.setRGB(x, y, getClosest(Color(img.getRGB(x, y))).rgb)
             }
         }
-        return bestColor
+        return img
+    }
+
+    private fun getClosest(c: Color) : Color {
+        //check which color value is the highest
+        val cVal = getNum(c)
+
+        //select the relevant color list
+        val list = if (isGray(c)) {
+            grayList
+        } else {
+            getList(cVal.first)
+        }
+
+        //prevent division by 0 with complete black
+        var first = getCol(c, cVal.first)
+        if (first == 0) {
+            first = 1
+        }
+
+        //find the factor to scale the color to max brightness
+        val scaleFactor : Double = MAX_VAL / first
+
+        //scale the color up
+        var cScaled = Color((c.red * scaleFactor).toInt()
+            , (c.green * scaleFactor).toInt()
+            , (c.blue * scaleFactor).toInt())
+
+        //set values for the comparison to max
+        var diff = Integer.MAX_VALUE
+        var cBestMatch = Color(0)
+
+        //compare color with list from theme
+        list.forEach { tempColor ->
+            //calculate diff with second and third prominent color value
+            val tempDiff = SECOND_FACTOR * abs(getCol(tempColor, cVal.second) - getCol(cScaled, cVal.second))
+                            + abs(getCol(tempColor, cVal.third) - getCol(cScaled, cVal.third))
+
+            //check match
+            if (tempDiff < diff) {
+                diff = tempDiff
+                cBestMatch = tempColor
+            }
+        }
+
+        //scale the new color according to the old one
+        return Color((cBestMatch.red / scaleFactor).toInt()
+            , (cBestMatch.green / scaleFactor).toInt()
+            , (cBestMatch.blue / scaleFactor).toInt())
     }
 
     private fun isGray(c: Color) : Boolean {
