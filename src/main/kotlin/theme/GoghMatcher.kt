@@ -1,9 +1,9 @@
 package theme
 
 import java.awt.Color
+import java.lang.Integer.parseInt
 import java.net.URL
 import java.nio.charset.Charset
-import java.lang.Long
 
 class GoghMatcher(val url: String) {
     private val regex: Regex = "COLOR(?:_\\d{2})?=\"#(?<color>[\\dabcdefABCDEF]{6})\"".toRegex()
@@ -20,7 +20,7 @@ class GoghMatcher(val url: String) {
         val stringList = match()
         val colorList = ArrayList<Color>()
         stringList.forEach { temp ->
-            colorList.add(Color(Long.parseLong(temp, 16).toInt()))
+            colorList.add(Color(parseInt(temp, 16)))
         }
         return Theme(colorList)
     }
