@@ -14,12 +14,20 @@ class Theme(colors: MutableList<Color>) {
     private val grayList: MutableList<Color> = mutableListOf()
 
     init {
-        //TODO scale all colors
         colors.forEach { c ->
-            when (getNum(c).first) {
-                ColorVal.RED -> red.add(c)
-                ColorVal.GREEN -> green.add(c)
-                ColorVal.BLUE -> blue.add(c)
+            val cVal = getNum(c)
+            val scaleFactor : Double = MAX_VAL / getCol(c, cVal.first)
+            var cScaled = Color((c.red * scaleFactor).toInt()
+                , (c.green * scaleFactor).toInt()
+                , (c.blue * scaleFactor).toInt())
+            if (isGray(cScaled)) {
+                grayList.add(cScaled)
+            } else {
+                when (cVal.first) {
+                    ColorVal.RED -> redList.add(cScaled)
+                    ColorVal.GREEN -> greenList.add(cScaled)
+                    ColorVal.BLUE -> blueList.add(cScaled)
+                }
             }
         }
     }
@@ -40,16 +48,10 @@ class Theme(colors: MutableList<Color>) {
         return bestColor
     }
 
-    private fun calcDiff(c1: Color, c2: Color, cVal: Triple<ColorVal, ColorVal, ColorVal>) : Int {
-        return SECOND_FACTOR * abs(getSecond(c1, cVal) - getSecond(c2, cVal)) + abs(getThird(c1, cVal) - getThird(c2, cVal))
-    }
-
-    private fun getSecond(c: Color, cVal: Triple<ColorVal, ColorVal, ColorVal>) : Int {
-        return getCol(c, cVal.second)
-    }
-
-    private fun getThird(c: Color, cVal: Triple<ColorVal, ColorVal, ColorVal>) : Int {
-        return getCol(c, cVal.third)
+    private fun isGray(c: Color) : Boolean {
+        return abs(c.red - c.green) < GRAY
+                && abs(c.green - c.blue) < GRAY
+                && abs(c.red - c.blue) < GRAY
     }
 
     private fun getCol(c: Color, cVal: ColorVal) : Int {
