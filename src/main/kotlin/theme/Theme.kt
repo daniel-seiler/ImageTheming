@@ -62,19 +62,11 @@ class Theme(colors: MutableList<Color>) {
         }
     }
 
-    private fun getList(triple: Triple<ColorVal, ColorVal, ColorVal>) : MutableList<Color> {
-        return when (triple.first) {
-            ColorVal.RED -> red
-            ColorVal.GREEN -> green
-            ColorVal.BLUE -> blue
-        }
-    }
-
     private fun getList(cVal: ColorVal) : MutableList<Color> {
         return when (cVal) {
-            ColorVal.RED -> red
-            ColorVal.GREEN -> green
-            ColorVal.BLUE -> blue
+            ColorVal.RED -> redList
+            ColorVal.GREEN -> greenList
+            ColorVal.BLUE -> blueList
         }
     }
 
