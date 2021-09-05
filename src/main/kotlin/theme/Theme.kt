@@ -1,14 +1,17 @@
 package theme
 
 import java.awt.Color
-import java.lang.Math.abs
+import java.awt.image.BufferedImage
+import kotlin.math.abs
 
 class Theme(colors: MutableList<Color>) {
-    private val MAX_VAL: Int = 255
+    private val MAX_VAL: Double = 255.0
     private val SECOND_FACTOR: Int = 2
-    private val red: MutableList<Color> = mutableListOf()
-    private val green: MutableList<Color> = mutableListOf()
-    private val blue: MutableList<Color> = mutableListOf()
+    private val GRAY: Int = 30;
+    private val redList: MutableList<Color> = mutableListOf()
+    private val greenList: MutableList<Color> = mutableListOf()
+    private val blueList: MutableList<Color> = mutableListOf()
+    private val grayList: MutableList<Color> = mutableListOf()
 
     init {
         //TODO scale all colors
