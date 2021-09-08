@@ -28,8 +28,13 @@ class ImgController(args: Array<String>) {
         }
     }
 
-    fun setAppendix(outAppendix: String) {
-        this.outAppendix = outAppendix
+    fun getImg(path: String) {
+        val file = File(path)
+        if (file.isFile) {
+            img[ImageIO.read(file)] = file
+        } else {//TODO implement images from dir
+            img[ImageIO.read(URL(path))] = File(System.getProperty("user.dir") + "/" + URL(path).host)
+        }
     }
 
     private fun isValid() : Boolean {
