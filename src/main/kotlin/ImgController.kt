@@ -2,11 +2,13 @@ import theme.GoghMatcher
 import theme.Theme
 import ui.Options
 import java.awt.image.BufferedImage
+import java.io.File
+import java.net.URL
+import javax.imageio.ImageIO
 
 class ImgController(args: Array<String>) {
-    var img: MutableList<BufferedImage> = mutableListOf()
-    var outAppendix: String? = null
-    var theme: Theme? = null
+    private var img: MutableMap<BufferedImage, File?> = mutableMapOf()
+    private var theme: Theme? = null
 
     init {
         args.forEach { arg ->
