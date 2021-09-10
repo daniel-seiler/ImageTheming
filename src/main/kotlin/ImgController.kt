@@ -7,7 +7,9 @@ import java.net.URL
 import javax.imageio.ImageIO
 
 class ImgController(args: Array<String>) {
-    private var img: MutableMap<BufferedImage, File?> = mutableMapOf()
+    private var img: MutableMap<File, BufferedImage> = mutableMapOf()
+    private var themeName: String? = null
+    private var imgName: String? = null//TODO implement for custom names
     private var theme: Theme? = null
 
     init {
@@ -15,7 +17,7 @@ class ImgController(args: Array<String>) {
             Options.executeMatching(arg, this)
         }
         if (isValid()) {
-            createImg()
+            saveNewImg()
         } else {
             throw UninitializedPropertyAccessException("Not all necessary options were set. Try -h / --help")
         }
