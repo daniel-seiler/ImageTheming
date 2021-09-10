@@ -1,13 +1,31 @@
 package ui
 
-enum class Options(r: Regex) {
-    INPATH("".toRegex()),
+import ImgController
 
-    OUTPATH("".toRegex()),
+enum class Options(val regex: Regex) {
+    OUTPATH("(?:-o|--output)=(?<path>.+)".toRegex()) {
+        override fun execute(matcher: MatchResult, ctlr: ImgController) {
+            TODO("Not yet implemented")
+        }
+    },
 
-    URL("".toRegex()),
+    HELP("-h|--help".toRegex()) {
+        override fun execute(matcher: MatchResult, ctlr: ImgController) {
+            TODO("Not yet implemented")
+        }
+    },
 
-    GRAY("".toRegex()),
+    THEME("(?:-t|--theme)=(?<theme>.+)".toRegex()) {
+        override fun execute(matcher: MatchResult, ctlr: ImgController) {
+            ctlr.setTheme(matcher.groups[1]!!.value)
+        }
+    },
+
+    INPATH("[^-](?<path>.+)".toRegex()) {
+        override fun execute(matcher: MatchResult, ctlr: ImgController) {
+            ctlr.setImg(matcher.groups[0]!!.value)
+        }
+    };
 
     abstract fun execute(matcher: MatchResult, ctlr: ImgController)
 
