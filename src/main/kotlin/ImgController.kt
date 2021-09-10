@@ -26,12 +26,12 @@ class ImgController(args: Array<String>) {
         themeName = name
     }
 
-    fun getImg(path: String) {
+    fun setImg(path: String) {
         val file = File(path)
         if (file.isFile) {
-            img[ImageIO.read(file)] = file
+            img[file] = ImageIO.read(file)
         } else {//TODO implement images from dir
-            img[ImageIO.read(URL(path))] = File(System.getProperty("user.dir") + "/" + URL(path).host)
+            img[File(System.getProperty("user.dir")).resolve(URL(path).host + ".png")] = ImageIO.read(URL(path))
         }
     }
 
