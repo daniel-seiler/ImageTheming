@@ -5,9 +5,9 @@ import java.lang.Integer.parseInt
 import java.net.URL
 import java.nio.charset.Charset
 
-class GoghMatcher(val url: String) {
+class GoghMatcher(val name: String) {
     private val regex: Regex = "COLOR(?:_\\d{2})?=\"#(?<color>[\\dabcdefABCDEF]{6})\"".toRegex()
-    private val theme: String = URL(url).readText(Charset.defaultCharset())
+    private val theme = URL("https://raw.githubusercontent.com/Mayccoll/Gogh/master/themes/${name}.sh").readText(Charset.defaultCharset())
 
     private fun match() : List<String> {
         val matches = regex.findAll(theme)
