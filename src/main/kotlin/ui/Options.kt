@@ -11,7 +11,15 @@ enum class Options(val regex: Regex) {
 
     HELP("-h|--help".toRegex()) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
-            TODO("Not yet implemented")
+            println("Usage: java -jar ImageTheming.jar [path] [options]\n\n" +
+                    "Path:\n" +
+                    "\tEither the path or the url of an image.\n\n" +
+                    "Options:\n" +
+                    "\t-h, --help\t\t\tshow this help message and exit\n\n" +
+                    "\t-t=<theme name> or\t\tset a theme by file name from https://github.com/Mayccoll/Gogh/tree/master/themes\n" +
+                    "\t--theme=<theme name>\t\tfor example: --theme=nord\n"
+            )
+            ctlr.exit()
         }
     },
 
