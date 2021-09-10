@@ -35,6 +35,12 @@ class ImgController(args: Array<String>) {
         }
     }
 
+    private fun setNewPath(file: File) : File {
+        val newFile = file.parentFile
+        return newFile.resolve("${file.nameWithoutExtension}-${themeName}.${file.extension}")
+        //TODO implement images to dir
+    }
+
     private fun isValid() : Boolean {
         return img.isNotEmpty() && theme != null
     }
