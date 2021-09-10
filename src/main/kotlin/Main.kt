@@ -2,6 +2,6 @@ fun main(args: Array<String>) {
     try {
         ImgController(args)
     } catch (e: Exception) {
-        println("${e.printStackTrace()}")
+        e.printStackTrace()
     }
 }
