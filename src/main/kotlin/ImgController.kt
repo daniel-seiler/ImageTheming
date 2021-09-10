@@ -11,6 +11,7 @@ class ImgController(args: Array<String>) {
     private var themeName: String? = null
     private var imgName: String? = null//TODO implement for custom names
     private var theme: Theme? = null
+    private var isRunning: Boolean = true
 
     init {
         args.forEach { arg ->
@@ -18,7 +19,7 @@ class ImgController(args: Array<String>) {
         }
         if (isValid()) {
             saveNewImg()
-        } else {
+        } else if (isRunning) {
             throw UninitializedPropertyAccessException("Not all necessary options were set. Try -h / --help")
         }
     }
@@ -35,6 +36,10 @@ class ImgController(args: Array<String>) {
         } else {//TODO implement images from dir
             img[File(System.getProperty("user.dir")).resolve(URL(path).host + ".png")] = ImageIO.read(URL(path))
         }
+    }
+
+    fun exit() {
+        isRunning = false
     }
 
     private fun setNewPath(file: File) : File {
