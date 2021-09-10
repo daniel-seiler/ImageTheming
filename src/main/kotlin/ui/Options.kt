@@ -9,5 +9,15 @@ enum class Options(r: Regex) {
 
     GRAY("".toRegex()),
 
-    HELP("".toRegex())
+    abstract fun execute(matcher: MatchResult, ctlr: ImgController)
+
+    companion object {
+        fun executeMatching(input: String, ctlr: ImgController) {
+            values().forEach { temp ->
+                if (temp.regex.matches(input)) {
+                    temp.regex.matchEntire(input)?.let { temp.execute(it, ctlr) }
+                }
+            }
+        }
+    }
 }
