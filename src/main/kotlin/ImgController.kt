@@ -45,7 +45,9 @@ class ImgController(args: Array<String>) {
         return img.isNotEmpty() && theme != null
     }
 
-    private fun createImg() {
-
+    private fun saveNewImg() {
+        img.forEach { (file, bufferedImg) ->
+            ImageIO.write(theme!!.transformImage(bufferedImg), file.extension, setNewPath(file))
+        }
     }
 }
