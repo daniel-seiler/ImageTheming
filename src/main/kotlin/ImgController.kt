@@ -22,10 +22,8 @@ class ImgController(args: Array<String>) {
     }
 
     fun setTheme(name: String) {
-        theme = GoghMatcher("https://raw.githubusercontent.com/Mayccall/Gogh/master/themes/$name.sh").getTheme()
-        if (outAppendix == null) {
-            outAppendix = "-$name"
-        }
+        theme = GoghMatcher(name).getTheme()
+        themeName = name
     }
 
     fun getImg(path: String) {
