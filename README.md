@@ -16,11 +16,22 @@ link is also possible) and select the color scheme to be
 
 Original | New image with Omni theme
 --- | ---
-![original image](resources/avatars.githubusercontent.com-original.png) | ![new image](resources/avatars.githubusercontent.com-omni.png)
-
-
-## What
+![](resources/avatars.githubusercontent.com-original.png) | ![](resources/avatars.githubusercontent.com-omni.png)
 
 ## Why
 
-## How
+Ever wanted to use a wallpaper, but it didn't match your color theme?
+
+## What to expect
+
+This program will take an image and a theme from [Gogh](https://mayccoll.github.io/Gogh/) as minimal input. It then 
+tries to match each pixel with a color from the given theme. The output is color-wise a downscaled version of the 
+original image. Because of this, the best results can be achieved with images that have little to no blur, high 
+resolution and clear defined lines. If you're going to watch all day at a generated image (wallpaper), you may want to 
+edit the generated images afterwards in GIMP/similar software.  
+
+To compare quality, here you have some examples. Keep in mind these are fairly zoomed in:
+
+original | nord | solarized-dark | maia
+--- | --- | --- | ---
+![](resources/astronaut-with-jellyfish.png) | ![](resources/astronaut-with-jellyfish-nord.png) | ![](resources/astronaut-with-jellyfish-solarized-dark.png) | ![](resources/astronaut-with-jellyfish-maia.png)
