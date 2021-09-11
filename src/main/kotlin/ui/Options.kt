@@ -33,6 +33,12 @@ enum class Options(val regex: Regex) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
             ctlr.setImg(matcher.groups[0]!!.value)
         }
+    },
+
+    RECURSIVE("-r|--recursive".toRegex()) {
+        override fun execute(matcher: MatchResult, ctlr: ImgController) {
+            ctlr.recursive = true
+        }
     };
 
     abstract fun execute(matcher: MatchResult, ctlr: ImgController)
