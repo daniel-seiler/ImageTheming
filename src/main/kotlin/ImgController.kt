@@ -12,6 +12,7 @@ class ImgController(args: Array<String>) {
     private var imgName: String? = null//TODO implement for custom names
     private var theme: Theme? = null
     private var isRunning: Boolean = true
+    var recursive: Boolean = false
 
     init {
         args.forEach { arg ->
@@ -33,7 +34,9 @@ class ImgController(args: Array<String>) {
         val file = File(path)
         if (file.isFile) {
             img[file] = ImageIO.read(file)
-        } else {//TODO implement images from dir
+        } else if (file.isDirectory) {
+            setFilesFromDir(file)
+        } else {
             img[File(System.getProperty("user.dir")).resolve(URL(path).host + ".png")] = ImageIO.read(URL(path))
         }
     }
@@ -42,13 +45,25 @@ class ImgController(args: Array<String>) {
         isRunning = false
     }
 
+    private fun setFilesFromDir(dir: File) {
+        if (dir.isDirectory) {
+            dir.walk().forEach {
+                if (it.isFile && (it.parentFile.equals(dir) || recursive)) {
+                    try {
+                        val bufferedImage = ImageIO.read(it)
+                        img[it] = bufferedImage
+                    } catch (e: Exception) {}
+                }
+            }
+        }
+    }
+
     private fun setNewPath(file: File) : File {
         var newFile = file.parentFile
         if (newFile == null) {
             newFile = File(System.getProperty("user.dir"))
         }
         return newFile.resolve("${file.nameWithoutExtension}-${themeName}.${file.extension}")
-        //TODO implement images to dir
     }
 
     private fun isValid() : Boolean {
