@@ -4,10 +4,20 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 import kotlin.math.abs
 
+/**
+ * Contains all available colors and matches images to those colors.
+ *
+ * @constructor
+ * Each color has to be scaled, so that at least one of its values is 255. Then the color added to one of the color
+ * lists according to its most dominant value. The GRAY value decides the difference between the most and the least
+ * dominant color value, so that colors that aren't exactly gray can still be considered as.
+ *
+ * @param colors    list of colors to add
+ */
 class Theme(colors: MutableList<Color>) {
     private val MAX_VAL: Double = 255.0
     private val SECOND_FACTOR: Int = 2
-    private val GRAY: Int = 30;
+    private val GRAY: Int = 30
     private val redList: MutableList<Color> = mutableListOf()
     private val greenList: MutableList<Color> = mutableListOf()
     private val blueList: MutableList<Color> = mutableListOf()
@@ -17,7 +27,7 @@ class Theme(colors: MutableList<Color>) {
         colors.forEach { c ->
             val cVal = getNum(c)
             val scaleFactor : Double = MAX_VAL / getCol(c, cVal.first)
-            var cScaled = Color((c.red * scaleFactor).toInt()
+            val cScaled = Color((c.red * scaleFactor).toInt()
                 , (c.green * scaleFactor).toInt()
                 , (c.blue * scaleFactor).toInt())
             if (isGray(cScaled)) {
@@ -32,6 +42,12 @@ class Theme(colors: MutableList<Color>) {
         }
     }
 
+    /**
+     * Create a new image by going through each pixel and matching the color to one of the available ones.
+     *
+     * @param img   old image to transform
+     * @return      new image with colors from the theme
+     */
     fun transformImage(img: BufferedImage) : BufferedImage {
         for (y in 0 until img.height) {
             for (x in 0 until img.width) {
@@ -41,6 +57,12 @@ class Theme(colors: MutableList<Color>) {
         return img
     }
 
+    /**
+     * Find the closest matching color from the theme for a given color.
+     *
+     * @param c     old color from the original image
+     * @return      new color from the theme
+     */
     private fun getClosest(c: Color) : Color {
         //check which color value is the highest
         val cVal = getNum(c)
@@ -62,7 +84,7 @@ class Theme(colors: MutableList<Color>) {
         val scaleFactor : Double = MAX_VAL / first
 
         //scale the color up
-        var cScaled = Color((c.red * scaleFactor).toInt()
+        val cScaled = Color((c.red * scaleFactor).toInt()
             , (c.green * scaleFactor).toInt()
             , (c.blue * scaleFactor).toInt())
 
@@ -73,8 +95,7 @@ class Theme(colors: MutableList<Color>) {
         //compare color with list from theme
         list.forEach { tempColor ->
             //calculate diff with second and third prominent color value
-            val tempDiff = SECOND_FACTOR * abs(getCol(tempColor, cVal.second) - getCol(cScaled, cVal.second))
-                            + abs(getCol(tempColor, cVal.third) - getCol(cScaled, cVal.third))
+            val tempDiff = SECOND_FACTOR * abs(getCol(tempColor, cVal.second) - getCol(cScaled, cVal.second)) + abs(getCol(tempColor, cVal.third) - getCol(cScaled, cVal.third))
 
             //check match
             if (tempDiff < diff) {
@@ -89,12 +110,25 @@ class Theme(colors: MutableList<Color>) {
             , (cBestMatch.blue / scaleFactor).toInt())
     }
 
+    /**
+     * Decide if a color can be considered as gray.
+     *
+     * @param c     color to be checked
+     * @return      boolean value if gray or not
+     */
     private fun isGray(c: Color) : Boolean {
         return abs(c.red - c.green) < GRAY
                 && abs(c.green - c.blue) < GRAY
                 && abs(c.red - c.blue) < GRAY
     }
 
+    /**
+     * Get the color value defined as enum.
+     *
+     * @param c     input color
+     * @param cVal  enum to decide which value to return
+     * @return      color value as integer
+     */
     private fun getCol(c: Color, cVal: ColorVal) : Int {
         return when (cVal) {
             ColorVal.RED -> c.red
@@ -103,6 +137,12 @@ class Theme(colors: MutableList<Color>) {
         }
     }
 
+    /**
+     * Get the list where the main value equals the enum.
+     *
+     * @param cVal  enum to decide which list to return
+     * @return      color list with the correct main value
+     */
     private fun getList(cVal: ColorVal) : MutableList<Color> {
         return when (cVal) {
             ColorVal.RED -> redList
@@ -111,6 +151,12 @@ class Theme(colors: MutableList<Color>) {
         }
     }
 
+    /**
+     * Sort the individual color values from highest to lowest.
+     *
+     * @param c     color to be checked
+     * @return      triple with enum values from highest to lowest
+     */
     private fun getNum(c: Color) : Triple<ColorVal, ColorVal, ColorVal> {
         return if (c.red <= c.green) {
             if (c.green <= c.blue) {
@@ -135,6 +181,9 @@ class Theme(colors: MutableList<Color>) {
         }
     }
 
+    /**
+     * Enum to select individual color values.
+     */
     private enum class ColorVal {
         RED,
         GREEN,
