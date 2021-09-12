@@ -40,6 +40,7 @@ class Theme(colors: MutableList<Color>) {
                 }
             }
         }
+        println(toString())
     }
 
     /**
@@ -179,6 +180,18 @@ class Theme(colors: MutableList<Color>) {
                 Triple(ColorVal.RED, ColorVal.GREEN, ColorVal.BLUE)
             }
         }
+    }
+
+    override fun toString() : String {
+        var output = "red colors:\n"
+        redList.forEach { color -> output += "${color}\n" }
+        output += "\ngreen colors:\n"
+        greenList.forEach { color -> output += "${color}\n" }
+        output += "\nblue colors:\n"
+        blueList.forEach { color -> output += "${color}\n" }
+        output += "\ngray colors:\n"
+        grayList.forEach { color -> output += "${color}\n" }
+        return output
     }
 
     /**

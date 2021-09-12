@@ -27,6 +27,7 @@ class ImgController(args: Array<String>) {
         args.forEach { arg ->
             Options.executeMatching(arg, this)
         }
+        println("adding images...")
         files.forEach { file -> getImg(file) }
         if (isValid()) {
             saveNewImg()
@@ -62,11 +63,17 @@ class ImgController(args: Array<String>) {
     private fun getImg(path: String) {
         val file = File(path)
         if (file.isFile) {
+            println("$file")
             img[file] = ImageIO.read(file)
         } else if (file.isDirectory) {
             setFilesFromDir(file)
         } else {
-            img[File(System.getProperty("user.dir")).resolve(URL(path).host + ".png")] = ImageIO.read(URL(path))
+            try {
+                img[File(System.getProperty("user.dir")).resolve(URL(path).host + ".png")] = ImageIO.read(URL(path))
+                println(path)
+            } catch (e: Exception) {
+                throw IllegalArgumentException("Couldn't load image from $path")
+            }
         }
     }
 
@@ -89,6 +96,7 @@ class ImgController(args: Array<String>) {
                     try {
                         val bufferedImage = ImageIO.read(it)
                         img[it] = bufferedImage
+                        println("$it")
                     } catch (e: Exception) {}
                 }
             }
@@ -104,7 +112,7 @@ class ImgController(args: Array<String>) {
      */
     private fun setNewPath(file: File) : File {
         var newFile: File
-        if (outDir!!.isDirectory || !outDir!!.exists()) {
+        if (outDir != null && (outDir!!.isDirectory || !outDir!!.exists())) {
             newFile = outDir as File
             newFile.mkdirs()
         } else {
@@ -129,8 +137,10 @@ class ImgController(args: Array<String>) {
      * Save the new images at their new path.
      */
     private fun saveNewImg() {
+        println("creating new images...")
         img.forEach { (file, bufferedImg) ->
             ImageIO.write(theme!!.transformImage(bufferedImg), file.extension, setNewPath(file))
+            println("saved to ${setNewPath(file)}")
         }
     }
 }

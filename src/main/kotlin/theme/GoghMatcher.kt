@@ -10,10 +10,19 @@ import java.nio.charset.Charset
  *
  * @property name   name of theme file without .sh
  */
-class GoghMatcher(val name: String) {
+class GoghMatcher(private val name: String) {
     private val regex: Regex = "COLOR(?:_\\d{2})?=\"#(?<color>[\\dabcdefABCDEF]{6})\"".toRegex()
-    private val theme = URL("https://raw.githubusercontent.com/Mayccoll/Gogh/master/themes/${name}.sh")
-        .readText(Charset.defaultCharset())
+    private var theme: String
+
+    init {
+        try {
+            theme = URL("https://raw.githubusercontent.com/Mayccoll/Gogh/master/themes/${name}.sh")
+                .readText(Charset.defaultCharset())
+            println("found theme \"$name\"")
+        } catch (e: Exception) {
+            throw IllegalArgumentException("theme $name couldn't be found")
+        }
+    }
 
     /**
      * Find all colors from the config file and write them to a string list.
@@ -22,7 +31,7 @@ class GoghMatcher(val name: String) {
      */
     private fun match() : List<String> {
         val matches = regex.findAll(theme)
-        var outputList = ArrayList<String>()
+        val outputList = ArrayList<String>()
         matches.forEach { temp -> outputList.add(temp.groupValues[1]) }
         return outputList
     }
