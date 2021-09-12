@@ -17,11 +17,16 @@ enum class Options(val regex: Regex) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
             println("Usage: java -jar ImageTheming.jar [path] [options]\n\n" +
                     "Path:\n" +
-                    "\tEither the path or the url of an image.\n\n" +
+                    "Either the path to an image or to a directory. An URL is also possible.\n\n" +
                     "Options:\n" +
-                    "\t-h, --help\t\t\tshow this help message and exit\n\n" +
-                    "\t-t=<theme name> or\t\tset a theme by file name from https://github.com/Mayccoll/Gogh/tree/master/themes\n" +
-                    "\t--theme=<theme name>\t\tfor example: --theme=nord\n"
+                    "-h, --help\n" +
+                    "show this message and exit\n\n" +
+                    "-t=<theme name> or --theme=<theme name>\n" +
+                    "set a theme by file name from https://github.com/Mayccoll/Gogh/tree/master/themes for example: --theme=nord. This option needs to be set.\n\n" +
+                    "-r, --recursive\n" +
+                    "if a path has been selected, usually only images from this path will be loaded. This option allows to search for images recursively.\n\n" +
+                    "-o=<path to directory> or --outputDir=<path to directory>\n" +
+                    "select a directory where the new images should go"
             )
             ctlr.exit()
         }
