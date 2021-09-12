@@ -9,15 +9,17 @@ import javax.imageio.ImageIO
 class ImgController(args: Array<String>) {
     private var img: MutableMap<File, BufferedImage> = mutableMapOf()
     private var themeName: String? = null
-    private var imgName: String? = null//TODO implement for custom names
     private var theme: Theme? = null
     private var isRunning: Boolean = true
+    private var files: MutableList<String> = mutableListOf()
     var recursive: Boolean = false
+    var outDir: File? = null
 
     init {
         args.forEach { arg ->
             Options.executeMatching(arg, this)
         }
+        files.forEach { file -> getImg(file) }
         if (isValid()) {
             saveNewImg()
         } else if (isRunning) {
@@ -63,9 +65,15 @@ class ImgController(args: Array<String>) {
     }
 
     private fun setNewPath(file: File) : File {
-        var newFile = file.parentFile
-        if (newFile == null) {
-            newFile = File(System.getProperty("user.dir"))
+        var newFile: File
+        if (outDir!!.isDirectory || !outDir!!.exists()) {
+            newFile = outDir as File
+            newFile.mkdirs()
+        } else {
+            newFile = file.parentFile
+            if (newFile == null) {
+                newFile = File(System.getProperty("user.dir"))
+            }
         }
         return newFile.resolve("${file.nameWithoutExtension}-${themeName}.${file.extension}")
     }

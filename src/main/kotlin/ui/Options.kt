@@ -1,13 +1,9 @@
 package ui
 
 import ImgController
+import java.io.File
 
 enum class Options(val regex: Regex) {
-    OUTPATH("(?:-o|--output)=(?<path>.+)".toRegex()) {
-        override fun execute(matcher: MatchResult, ctlr: ImgController) {
-            TODO("Not yet implemented")
-        }
-    },
 
     HELP("-h|--help".toRegex()) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
@@ -38,6 +34,12 @@ enum class Options(val regex: Regex) {
     RECURSIVE("-r|--recursive".toRegex()) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
             ctlr.recursive = true
+        }
+    },
+
+    OUTDIR("(?:-o|--outputDir)=(?<outDir>.+)".toRegex()) {
+        override fun execute(matcher: MatchResult, ctlr: ImgController) {
+            ctlr.outDir = File(matcher.groups[1]!!.value)
         }
     };
 
