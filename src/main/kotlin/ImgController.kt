@@ -111,14 +111,15 @@ class ImgController(args: Array<String>) {
      * @return      path to the new file
      */
     private fun setNewPath(file: File) : File {
-        var newFile: File
+        val newFile: File
         if (outDir != null && (outDir!!.isDirectory || !outDir!!.exists())) {
             newFile = outDir as File
             newFile.mkdirs()
         } else {
-            newFile = file.parentFile
-            if (newFile == null) {
-                newFile = File(System.getProperty("user.dir"))
+            newFile = if (file.parentFile == null) {
+                File(System.getProperty("user.dir"))
+            } else {
+                file.parentFile
             }
         }
         return newFile.resolve("${file.nameWithoutExtension}-${themeName}.${file.extension}")
