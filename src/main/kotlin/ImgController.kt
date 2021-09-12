@@ -30,7 +30,11 @@ class ImgController(args: Array<String>) {
         themeName = name
     }
 
-    fun setImg(path: String) {
+    fun setPath(path: String) {
+        files.add(path)
+    }
+
+    private fun getImg(path: String) {
         val file = File(path)
         if (file.isFile) {
             img[file] = ImageIO.read(file)
