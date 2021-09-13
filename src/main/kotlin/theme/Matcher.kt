@@ -11,7 +11,7 @@ import java.nio.charset.Charset
  *
  * @property name   name of theme file without .sh
  */
-class GoghMatcher(var name: String) {
+class Matcher(var name: String) {
     private val regex: Regex = "(?<color>[\\dabcdefABCDEF]{6})".toRegex()
     private var theme: String
 

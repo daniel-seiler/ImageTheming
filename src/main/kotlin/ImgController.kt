@@ -1,4 +1,4 @@
-import theme.GoghMatcher
+import theme.Matcher
 import theme.Theme
 import ui.Options
 import java.awt.image.BufferedImage
@@ -42,7 +42,7 @@ class ImgController(args: Array<String>) {
      * @param name  name of the theme for future reference
      */
     fun setTheme(name: String) {
-        val matcher = GoghMatcher(name)
+        val matcher = Matcher(name)
         theme = matcher.getTheme()
         if (theme == null) {
             throw IllegalArgumentException("No colors where found")
