@@ -20,7 +20,10 @@ Original | New image with Omni theme
 
 ## Selecting a theme
 
-As soon as you found your theme, the appropriate name must be selected from [these](https://github.com/Mayccoll/Gogh/tree/master/themes) files (without the .sh extension). Example: `OneDark -> one-dark.sh -> ... -t=one-dark`
+You can either use a config file or a premade theme to select the colors.  
+If a file is selected, all hex numbers with the length of 6 are used as colors.  
+If you want to use a premade theme, choose a color scheme from 
+[these](https://github.com/Mayccoll/Gogh/tree/master/themes) files (without the .sh extension). Example: `OneDark -> one-dark.sh -> ... -t=one-dark` or `-t=.config/colors`
 
 ## Why
 
