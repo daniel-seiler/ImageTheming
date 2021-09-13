@@ -18,6 +18,10 @@ Original | New image with Omni theme
 --- | ---
 ![](resources/avatars.githubusercontent.com-original.png) | ![](resources/avatars.githubusercontent.com-omni.png)
 
+## Selecting a theme
+
+As soon as you found your theme, the appropriate name must be selected from [these](https://github.com/Mayccoll/Gogh/tree/master/themes) files (without the .sh extension). Example: `OneDark -> one-dark.sh -> ... -t=one-dark`
+
 ## Why
 
 Ever wanted to use a wallpaper, but it didn't match your color theme?
