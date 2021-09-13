@@ -1,6 +1,7 @@
 package theme
 
 import java.awt.Color
+import java.io.File
 import java.lang.Integer.parseInt
 import java.net.URL
 import java.nio.charset.Charset
@@ -10,17 +11,23 @@ import java.nio.charset.Charset
  *
  * @property name   name of theme file without .sh
  */
-class GoghMatcher(private val name: String) {
-    private val regex: Regex = "COLOR(?:_\\d{2})?=\"#(?<color>[\\dabcdefABCDEF]{6})\"".toRegex()
+class GoghMatcher(var name: String) {
+    private val regex: Regex = "(?<color>[\\dabcdefABCDEF]{6})".toRegex()
     private var theme: String
 
     init {
-        try {
-            theme = URL("https://raw.githubusercontent.com/Mayccoll/Gogh/master/themes/${name}.sh")
-                .readText(Charset.defaultCharset())
-            println("found theme \"$name\"")
-        } catch (e: Exception) {
-            throw IllegalArgumentException("theme $name couldn't be found")
+        val path = File(name)
+        if (path.isFile) {
+            theme = path.readText(Charset.defaultCharset())
+            name = "custom"
+        } else {
+            try {
+                theme = URL("https://raw.githubusercontent.com/Mayccoll/Gogh/master/themes/${name}.sh")
+                    .readText(Charset.defaultCharset())
+                println("found theme \"$name\"")
+            } catch (e: Exception) {
+                throw IllegalArgumentException("theme $name couldn't be found")
+            }
         }
     }
 

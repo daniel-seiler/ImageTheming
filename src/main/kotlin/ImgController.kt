@@ -42,8 +42,12 @@ class ImgController(args: Array<String>) {
      * @param name  name of the theme for future reference
      */
     fun setTheme(name: String) {
-        theme = GoghMatcher(name).getTheme()
-        themeName = name
+        val matcher = GoghMatcher(name)
+        theme = matcher.getTheme()
+        if (theme == null) {
+            throw IllegalArgumentException("No colors where found")
+        }
+        themeName = matcher.name
     }
 
     /**
