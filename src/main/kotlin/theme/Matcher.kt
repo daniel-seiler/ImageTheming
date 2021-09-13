@@ -7,7 +7,8 @@ import java.net.URL
 import java.nio.charset.Charset
 
 /**
- * Load a color scheme from Gogh. Uses regex for future use with config files.
+ * Load a color scheme. Specify either the path to a config file or the name of a theme from Gogh. Regex is used to
+ * match all character sequences with exactly 6 hex numbers.
  *
  * @property name   name of theme file without .sh
  */

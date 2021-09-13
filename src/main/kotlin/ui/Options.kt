@@ -22,9 +22,12 @@ enum class Options(val regex: Regex) {
                     "-h, --help\n" +
                     "show this message and exit\n\n" +
                     "-t=<theme name> or --theme=<theme name>\n" +
-                    "set a theme by file name from https://github.com/Mayccoll/Gogh/tree/master/themes for example: --theme=nord. This option needs to be set.\n\n" +
+                    "set a theme by specifying the path to a config file of the file name from " +
+                    "https://github.com/Mayccoll/Gogh/tree/master/themes. For example: --theme=nord. This option " +
+                    "needs to be set.\n\n" +
                     "-r, --recursive\n" +
-                    "if a path has been selected, usually only images from this path will be loaded. This option allows to search for images recursively.\n\n" +
+                    "if a path has been selected, usually only images from this path will be loaded. This option " +
+                    "allows to search for images recursively.\n\n" +
                     "-o=<path to directory> or --outputDir=<path to directory>\n" +
                     "select a directory where the new images should go"
             )
