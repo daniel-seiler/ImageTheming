@@ -49,7 +49,7 @@ enum class Options(val regex: Regex) {
      */
     INPATH("[^-](?<path>.+)".toRegex()) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
-            ctlr.setPath(matcher.groups[0]!!.value)
+            ctlr.inDir.add(matcher.groups[0]!!.value)
         }
     },
 
@@ -70,6 +70,12 @@ enum class Options(val regex: Regex) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
             println("new output directory: \"${matcher.groups[1]!!.value}\"")
             ctlr.outDir = File(matcher.groups[1]!!.value)
+        }
+    },
+
+    INTERACTIVE("-i|--interactive".toRegex()) {
+        override fun execute(matcher: MatchResult, ctlr: ImgController) {
+            Interactive(ctlr)
         }
     };
 
