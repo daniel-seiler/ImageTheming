@@ -1,4 +1,9 @@
+# Gradle stuff
 .gradle/*
+build/*
+
+# IntelliJ stuff
 .idea/*
 out/*
-build/*
+
+temp/*
