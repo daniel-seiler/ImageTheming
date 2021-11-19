@@ -42,3 +42,9 @@ To compare quality, here you have some examples. Keep in mind these are fairly z
 original | nord | solarized-dark | maia
 --- | --- | --- | ---
 ![](resources/astronaut-with-jellyfish.png) | ![](resources/astronaut-with-jellyfish-nord.png) | ![](resources/astronaut-with-jellyfish-solarized-dark.png) | ![](resources/astronaut-with-jellyfish-maia.png)
+
+## How to build
+* [Install gradle](https://gradle.org/install/)
+* Run `gradle jar`  
+
+This will create the executable JAR file in build/libs/ImageTheming.jar
