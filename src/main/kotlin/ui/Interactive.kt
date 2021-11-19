@@ -1,6 +1,6 @@
-package ImageTheming.ui
+package ui
 
-import ImageTheming.ImgController
+import ImgController
 import java.io.File
 
 class Interactive(private val ctrl: ImgController) {

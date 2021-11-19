@@ -1,6 +1,6 @@
-package ImageTheming.ui
+package ui
 
-import ImageTheming.ImgController
+import ImgController
 import java.io.File
 
 /**
@@ -91,8 +91,8 @@ enum class Options(val regex: Regex) {
         /**
          * Go through all enum values and match them with the given argument.
          *
-         * @param input argument from the ImageTheming.main function
-         * @param ctlr  the class that controls the program for the ImageTheming.main part
+         * @param input argument from the main function
+         * @param ctlr  the class that controls the program for the main part
          */
         fun executeMatching(input: String, ctlr: ImgController) {
             values().forEach { temp ->

@@ -9,4 +9,3 @@
  */
 
 rootProject.name = "ImageTheming"
-include("app")

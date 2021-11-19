@@ -44,14 +44,14 @@ testing {
 
 application {
     // Define the main class for the application.
-    mainClass.set("ImageTheming.MainKt")
+    mainClass.set("MainKt")
 }
 
 tasks.withType<Jar> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest {
-        attributes["Main-Class"] = "ImageTheming.MainKt"
+        attributes["Main-Class"] = "MainKt"
     }
 
     from(sourceSets.main.get().output)
