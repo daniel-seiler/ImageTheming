@@ -1,6 +1,5 @@
-package ui
+package ImageTheming
 
-import ImgController
 import java.io.File
 
 /**
@@ -49,7 +48,7 @@ enum class Options(val regex: Regex) {
      */
     INPATH("[^-](?<path>.+)".toRegex()) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
-            ctlr.inDir.add(matcher.groups[0]!!.value)
+            ctlr.setPath(matcher.groups[0]!!.value)
         }
     },
 
@@ -91,8 +90,8 @@ enum class Options(val regex: Regex) {
         /**
          * Go through all enum values and match them with the given argument.
          *
-         * @param input argument from the main function
-         * @param ctlr  the class that controls the program for the main part
+         * @param input argument from the ImageTheming.main function
+         * @param ctlr  the class that controls the program for the ImageTheming.main part
          */
         fun executeMatching(input: String, ctlr: ImgController) {
             values().forEach { temp ->
