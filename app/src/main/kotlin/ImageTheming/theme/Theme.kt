@@ -1,4 +1,4 @@
-package theme
+package ImageTheming.theme
 
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -139,10 +139,10 @@ class Theme(colors: MutableList<Color>) {
     }
 
     /**
-     * Get the list where the main value equals the enum.
+     * Get the list where the ImageTheming.main value equals the enum.
      *
      * @param cVal  enum to decide which list to return
-     * @return      color list with the correct main value
+     * @return      color list with the correct ImageTheming.main value
      */
     private fun getList(cVal: ColorVal) : MutableList<Color> {
         return when (cVal) {

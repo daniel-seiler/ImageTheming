@@ -1,4 +1,4 @@
-package theme
+package ImageTheming.theme
 
 import java.awt.Color
 import java.io.File

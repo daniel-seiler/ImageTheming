@@ -1,18 +1,20 @@
-import theme.Matcher
-import theme.Theme
-import ui.Options
+package ImageTheming
+
+import ImageTheming.theme.Matcher
+import ImageTheming.theme.Theme
+import ImageTheming.ui.Options
 import java.awt.image.BufferedImage
 import java.io.File
 import java.net.URL
 import javax.imageio.ImageIO
 
 /**
- * Control the main functions of the whole program.
+ * Control the ImageTheming.main functions of the whole program.
  *
  * @constructor
  * Evaluate all given arguments, load images, transform and save them later.
  *
- * @param args      program arguments from the main function
+ * @param args      program arguments from the ImageTheming.main function
  */
 class ImgController(args: Array<String>) {
     private var img: MutableMap<File, BufferedImage> = mutableMapOf()
