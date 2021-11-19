@@ -31,7 +31,7 @@ class Interactive(private val ctrl: ImgController) {
         )
         do {
             print(">> ")
-            readLine()?.let { ctrl.inDir.add(it) }
+            readLine()?.let { ctrl.setPath(it) }
             print("Add another image/path? ")
         } while (askNo())
         print("If you added a path, should the program search recursively? ")

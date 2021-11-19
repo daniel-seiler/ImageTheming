@@ -49,7 +49,7 @@ enum class Options(val regex: Regex) {
      */
     INPATH("[^-](?<path>.+)".toRegex()) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
-            ctlr.inDir.add(matcher.groups[0]!!.value)
+            ctlr.setPath(matcher.groups[0]!!.value)
         }
     },
 
