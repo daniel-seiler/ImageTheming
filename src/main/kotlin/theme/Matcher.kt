@@ -4,6 +4,7 @@ import java.awt.Color
 import java.io.File
 import java.lang.Integer.parseInt
 import java.net.URL
+import java.net.URLEncoder
 import java.nio.charset.Charset
 
 /**
@@ -23,10 +24,13 @@ class Matcher(var name: String) {
             name = "custom"
         } else {
             try {
-                theme = URL("https://raw.githubusercontent.com/Mayccoll/Gogh/master/themes/${name}.sh")
+                name = name.split("\\s+".toRegex()).joinToString(" ") { it.capitalize() }
+                name = name.replace(" ", "%20")
+                theme = URL("https://raw.githubusercontent.com/Gogh-Co/Gogh/master/themes/${name}.yml")
                     .readText(Charset.defaultCharset())
                 println("found theme \"$name\"")
             } catch (e: Exception) {
+                println(e.message)
                 throw IllegalArgumentException("theme $name couldn't be found")
             }
         }
