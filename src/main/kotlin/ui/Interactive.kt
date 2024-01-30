@@ -44,8 +44,8 @@ class Interactive(private val ctrl: ImgController) {
             var outDir = File("")
             do {
                 print(">> ")
-                val input = readLine()
-                input?.let { outDir = File(input) }
+                val input = readLine()?.replaceFirst("^~".toRegex(), System.getProperty("user.home"))
+                input.let { outDir = File(input) }
             } while (input != null && outDir.isFile)
             ctrl.outDir = outDir
         }

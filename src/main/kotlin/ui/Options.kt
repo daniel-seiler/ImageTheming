@@ -69,7 +69,7 @@ enum class Options(val regex: Regex) {
     OUTDIR("(?:-o|--outputDir)=(?<outDir>.+)".toRegex()) {
         override fun execute(matcher: MatchResult, ctlr: ImgController) {
             println("new output directory: \"${matcher.groups[1]!!.value}\"")
-            ctlr.outDir = File(matcher.groups[1]!!.value)
+            ctlr.outDir = File(matcher.groups[1]!!.value.replaceFirst("^~".toRegex(), System.getProperty("user.home")))
         }
     },
 
