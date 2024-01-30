@@ -18,7 +18,8 @@ class Matcher(var name: String) {
     private var theme: String
 
     init {
-        val path = File(name)
+        // replace a "~" if used with user.home
+        val path = File(name.replaceFirst("^~".toRegex(), System.getProperty("user.home")))
         if (path.isFile) {
             theme = path.readText(Charset.defaultCharset())
             name = "custom"
